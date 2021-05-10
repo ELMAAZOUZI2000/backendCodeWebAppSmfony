@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <article> 
+            <h4 class="text-white text-center bg-primary">Information sue le Category dont id {{category.id}}</h4>
+            <p><b>Title: </b>{{category.title}}</p>
+            <div><b>Reference: </b>{{category.description}}</div>   
+            <br><br>
+            <h4 class="text-white text-center bg-primary">List des produits</h4>
+            {% for produit in category.produits %}
+                <div class="row">
+                    <div class="col-md-8">
+                        <p><b>Title: </b>{{produit.title}}</p>
+                        <b>Reference: </b><small>{{produit.reference}}</small>
+                        <div><b>Reference: </b>{{produit.description}}</div>
+                        <p><b>Prix: </b>{{produit.prix}}$</p> 
+                        <a  class="btn btn-primary" href= "{{ path('show_produit',{'id': produit.id})}}">Show product</a>
+                        <a  class="btn btn-dark" href= "{{ path('edit_produit',{'id': produit.id})}}">Edite product</a>
+                        <a  class="btn btn-danger"  href= "{{ path('delete_produit',{'id': produit.id})}}">Delete product</a>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{{ produit.image}}" width="150px" height="150px"> 
+                    </div> 
+                </div>
+                 <hr> 
+            {% endfor %}
+    </article> 
+         <a href="{{path('home')}}" class="btn btn-success mb-3 mt-3">Back Home</a> 
+{% endblock %}

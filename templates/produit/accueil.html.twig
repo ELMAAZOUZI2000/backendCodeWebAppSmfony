@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %} 
+
+    <div class="jumbotron text-center">
+        <h2 class=" text-info text-capitalize display-5" style="color:#077E8A" >Gestion des produits</h2> 
+    </div>
+    <div class="container mt-4"> 
+    <h2 style="color:#077E8A">Latest Product</h2>
+    <div class="row mt-5 mb-5">
+        {% for product in products %} 
+              <div class="col-md-3">    
+                 <div class="card border border-light rounded-lg mt-1" style="height:370px; background-color:#ecf0f1 ">
+                 <div class="card-title m-2 text-center"> <h4 ><a  style="color:#077E8A" class="text-decoration-none" href="{{ path('product.show', {'id': product.id}) }}">{{ product.title}}</a></h4></div>
+
+                     {% if product.productImages is not empty %}
+                      <div class="card-img-top p-2">
+                             <div id="carouselExampleControls{{product.id}}" class="carousel slide" data-bs-ride="carousel">
+                              <div class="carousel-inner">
+                              {% set value = true %} 
+                                {% for image in product.productImages %}    
+                                <div class="carousel-item  {% if value %} active {% endif %}">
+                                  <img src="/uploads/{{image.imageName}}" class="d-block w-100" alt="..." height="170px" width="300px">
+                                </div>  
+                                {% set value = false %}
+                                {% endfor %}
+                              </div>
+                              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls{{product.id}}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                              </button>
+                              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls{{product.id}}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                              </button>
+                            </div>
+                      </div>
+                      
+                   {% else %} 
+                     <img src="/uploads/default_image.png" class="d-block w-100" alt="..." height="300px">
+                   {% endif %}
+                    <div class="card-body  d-flex flex-column align-items-baseline">
+                            <div class="text-capitalize ">{{product.description}}</div>
+                            <p   style="color:#077E8A"><b>{{product.prix}}$</b></p> 
+                    </div>
+                 </div>
+             </div>   
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

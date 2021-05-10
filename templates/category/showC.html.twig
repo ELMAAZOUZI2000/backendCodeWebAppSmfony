@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h4 class="text-center">Categories</h4></div>
+                <div class="card-body">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            {% for category in categories %}  
+                                <tr>
+                                    <td>{{category.id}} </td>
+                                    <td>{{category.title}}</td>
+                                    <td>{{category.description}}</td>
+                                    <td>
+                                    <a class="btn btn-sm btn-primary" href="{{ path('show_category_info', {'id': category.id}) }}"><i class="fa fa-plus"></i> More info</a>
+                                    <a class="btn btn-sm btn-danger" href="{{ path('delete_category', {'id': category.id}) }}" ><i class="fa fa-trash"></i> Delete</a> 
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{{path('home')}}" class="btn btn-success mb-3 mt-3">Back Home</a> 
+{% endblock %}

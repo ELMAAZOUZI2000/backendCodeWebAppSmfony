@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %} 
+{% block body %}
+    <div class="container mt-5">
+        <h3 class=" display-5 text-center">
+        
+         {% if editMode %}
+                Modification de Produit
+         {% else %}
+                Création de produit
+         {% endif %}
+        </h3> 
+        {{form_start(formProduit)}}
+        <div class="row align-items-end">
+            <div class="col-md-6">{{form_row(formProduit.title)}}</div>
+            <div class="col-md-3">{{form_row(formProduit.reference)}}</div> 
+            <div class="col-md-3"> {{form_row(formProduit.productImages)}}</div> 
+        </div>
+        
+        <div class="row"> 
+            <div class="col-md-3">{{form_row(formProduit.prix)}}</div>
+            <div class="col-md-9">{{form_row(formProduit.category)}}</div> 
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">{{form_row(formProduit.description)}}</div>
+        </div>
+
+         {% if editMode %}
+            <div class="card"> 
+              <div class="card-header fs-5" style="color:#077E8A"> Modifier les images de produit</div>
+              <div class="card-body">
+                <div class="row text-center">
+                {% for image in produit.productImages %}
+                    <div class="col-md-3">
+                     <img src="/uploads/{{image.imageName}}" class="d-block w-100" alt="..." height="170px">
+                     <a href="{{path('product.delete_image',{'id': image.id})}}" class="text-danger text-decoration-none fs-6 fw-normal" >Delete Image</a>
+                    </div>
+                {% endfor %}
+             </div>
+              </div>
+            </div>
+        {% endif %}
+
+        <div class="text-left mb-5 mt-4"> 
+                <button type="submit" class="btn btn-danger">
+                    {% if editMode %}
+                        Update
+                    {% else %}
+                        Enregistrer
+                    {% endif %}
+                </button> 
+        </div>
+         {{form_end(formProduit)}}
+
+       
+        <a class="btn btn-primary mt-5" href="{{ path('manage') }}">Voir list des categories</a> 
+    </div>
+{% endblock %}      
+
